@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="notes">
+        <item>Notes1</item>
+        <item>Notes2</item>
+        <item>Notes3</item>
+        <item>Notes4</item>
+        <item>Notes5</item>
+    </string-array>
+
+    <string-array name="text_notes">
+        <item>Текст первой заметки</item>
+        <item>text of the second note</item>
+        <item>Текст третьей заметки</item>
+        <item>Текст четвертой заметки</item>
+        <item>Текст пятой заметки</item>
+    </string-array>
+
+
+</resources>

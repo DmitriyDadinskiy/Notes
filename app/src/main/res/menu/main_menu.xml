@@ -5,18 +5,18 @@
 
     <item
         android:id="@+id/action_sittings"
-        android:orderInCategory="1"
-        android:title="Настройки"/>
+        android:orderInCategory="3"
+        android:title="@string/title_settings"/>
     <item
         android:id="@+id/action_info"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
         android:title="О приложении"/>
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
-        android:orderInCategory="5"
+        android:orderInCategory="1"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
 </menu>

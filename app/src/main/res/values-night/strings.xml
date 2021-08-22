@@ -1,11 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Notes</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="search">search</string>
     <string name="title_settings">Настройки</string>
     <string name="Button_delete">Delete</string>
     <string name="button_add">addNotes</string>
     <string name="share">Поделиться</string>
-    <string name="add_photo">Добавить фото</string>
-
 </resources>

@@ -10,12 +10,16 @@
         android:id="@+id/text_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@android:color/transparent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="28dp"
         tools:text="Текст первой заметки" />
     <TextView
         android:id="@+id/text_in_fragment"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        tools:text="Заметка"/>
 
 </FrameLayout>

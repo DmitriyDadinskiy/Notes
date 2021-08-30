@@ -10,9 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private void initButton() {
         Button delete = findViewById(R.id.delete);
         Button ADD = findViewById(R.id.addNotes);
-        ADD.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Пока не сможем ничего добавить",Toast
+        ADD.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Пока не сможем ничего добавить", Toast
                 .LENGTH_LONG).show());
-        delete.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Не спеши ломать!",Toast
+        delete.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Не спеши ломать!", Toast
                 .LENGTH_LONG).show());
     }
 
@@ -43,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_sittings:
-                Toast.makeText(getApplicationContext(), "Настройки будут работать позже",Toast
+                Toast.makeText(getApplicationContext(), "Настройки будут работать позже", Toast
                         .LENGTH_LONG).show();
             case R.id.action_info:
-                Toast.makeText(getApplicationContext(), "Я скоро все расскажу",Toast
+                Toast.makeText(getApplicationContext(), "Я скоро все расскажу", Toast
                         .LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
@@ -56,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem search = menu.findItem(R.id.action_search);
         SearchView searchText = (SearchView) search.getActionView();
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this,query,Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, query, Toast.LENGTH_LONG).show();
                 return true;
             }
 

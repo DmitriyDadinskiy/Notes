@@ -6,6 +6,21 @@
         <item>Notes3</item>
         <item>Notes4</item>
         <item>Notes5</item>
+        <item>Notes6</item>
+        <item>Notes7</item>
+        <item>Notes8</item>
+        <item>Notes9</item>
+        <item>Notes10</item>
+        <item>Notes11</item>
+        <item>Notes12</item>
+        <item>Notes13</item>
+        <item>Notes14</item>
+        <item>Notes15</item>
+        <item>Notes16</item>
+        <item>Notes17</item>
+        <item>Notes18</item>
+        <item>Notes19</item>
+        <item>Notes20</item>
     </string-array>
 
     <string-array name="text_notes">
@@ -14,6 +29,21 @@
         <item>Текст третьей заметки</item>
         <item>Текст четвертой заметки</item>
         <item>Текст пятой заметки</item>
+        <item>Текст 6 заметки</item>
+        <item>text of the 7 note</item>
+        <item>Текст 8 заметки</item>
+        <item>Текст 9 заметки</item>
+        <item>Текст 10 заметки</item>
+        <item>Текст 11й заметки</item>
+        <item>text of the 12 note</item>
+        <item>Текст 13 заметки</item>
+        <item>Текст 14 заметки</item>
+        <item>Текст 15 заметки</item>
+        <item>Текст 16 заметки</item>
+        <item>text of the 17 note</item>
+        <item>Текст 18 заметки</item>
+        <item>Текст 19 заметки</item>
+        <item>Текст 20 заметки</item>
     </string-array>
 
 

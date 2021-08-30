@@ -46,6 +46,8 @@ public class TextActivity2 extends AppCompatActivity {
             case R.id.action_info:
                 Toast.makeText(getApplicationContext(), "Я скоро все расскажу",Toast
                         .LENGTH_LONG).show();
+            case R.id.stop_activity:
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

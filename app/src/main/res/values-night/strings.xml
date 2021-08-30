@@ -4,4 +4,5 @@
     <string name="Button_delete">Delete</string>
     <string name="button_add">addNotes</string>
     <string name="share">Поделиться</string>
+    <string name="start_activity">Назад</string>
 </resources>

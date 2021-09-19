@@ -8,5 +8,7 @@
     <string name="share">Поделиться</string>
     <string name="add_photo">Добавить фото</string>
     <string name="start_activity">Назад</string>
+    <string name="add">Добавить</string>
+    <string name="clear">Удалить</string>
 
 </resources>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="sizeItemList">35sp</dimen>
+    <dimen name="sizeItemList">32sp</dimen>
 </resources>

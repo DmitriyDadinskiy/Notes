@@ -1,49 +1,43 @@
 package com.example.notes;
 
-import android.os.Build;
+
+
+
+import android.app.assist.AssistStructure;
+import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.AppCompatEditText;
+
+import java.util.Date;
 
 public class NoteStructure implements Parcelable {
 
-    private int description;
-    private String title;
-    private int date;
+    private static String title;
+    private static Date date;
+    private String description;
     private boolean check;
 
 
-    public NoteStructure(String title, int description) {
+    public NoteStructure(String title, String description, Date date, boolean check) {
         this.title = title;
         this.description = description;
+        this.date = date;
+        this.check = check;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+
+
+
     protected NoteStructure(Parcel in) {
+        description = in.readString();
+        check = in.readByte() != 0;
+        date = new Date (in.readLong());
         title = in.readString();
-        description = in.readInt();
-        date = in.readInt();
-        check = in.readBoolean();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeInt(description);
-        dest.writeInt(date);
-        dest.writeBoolean(check);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<NoteStructure> CREATOR = new Creator<NoteStructure>() {
-        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public NoteStructure createFromParcel(Parcel in) {
             return new NoteStructure(in);
@@ -55,11 +49,32 @@ public class NoteStructure implements Parcelable {
         }
     };
 
-    public String getTitle() {
+    public static String getTitle() {
         return title;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
+    }
+
+    public static Date getDate() {
+        return date;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(description);
+        dest.writeByte((byte) (check ? 1 : 0));
+        dest.writeLong(date.getTime());
+        dest.writeString(title);
     }
 }

@@ -30,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton() {
+
         Button delete = findViewById(R.id.delete);
         Button ADD = findViewById(R.id.addNotes);
-        ADD.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Пока не сможем ничего добавить", Toast
+        ADD.setOnClickListener(v ->
+        Toast.makeText(getApplicationContext(), "Пока не сможем ничего добавить", Toast
                 .LENGTH_LONG).show());
+
+
         delete.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Не спеши ломать!", Toast
                 .LENGTH_LONG).show());
     }

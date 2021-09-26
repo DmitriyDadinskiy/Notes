@@ -10,25 +10,29 @@ import java.util.List;
 public class NoteStructurelmpl implements CardsSource {
     private List<NoteStructure> dataSource;
     private Resources resources;
-    public NoteStructurelmpl (Resources resources){
+
+    public NoteStructurelmpl(Resources resources){
         dataSource = new ArrayList<>();
-        this.resources = resources;
+        this.resources = this.resources;
     }
 
 
-
-
-    public NoteStructurelmpl init(){
-        String [] title = resources.getStringArray(R.array.notes);
-        String [] description = resources.getStringArray(R.array.text_notes);
+    @Override
+    public CardsSource init(CardsSourceResponse cardsSourceResponse) {
+                String [] title = resources.getStringArray(R.array.notes);
+                String [] description = resources.getStringArray(R.array.text_notes);
         for (int i = 0; i < title.length; i++) {
-            dataSource.add(new NoteStructure(title[i], description[i], Calendar.getInstance().getTime(), false));
-
+            dataSource.add(new NoteStructure(title[i],  Calendar.getInstance().getTime(), description[i], false));
         }
+        if (cardsSourceResponse != null){
+            cardsSourceResponse.initialized(this);
+        }
+
+
         return this;
     }
 
-        @Override
+    @Override
     public NoteStructure getCardData(int position) {
         return dataSource.get(position);
 
@@ -46,7 +50,7 @@ public class NoteStructurelmpl implements CardsSource {
     }
 
     @Override
-    public void addCardData(int buttonPosition, NoteStructure noteStructure) {
+    public void addCardData(NoteStructure noteStructure) {
         dataSource.add(noteStructure);
 
     }

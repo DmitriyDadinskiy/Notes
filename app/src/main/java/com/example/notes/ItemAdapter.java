@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         this.fragment = fragment;
     }
 
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,6 +58,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         this.listener = listener;
     }
 
+
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -67,7 +69,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+    public  class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageButton ImageButton;
         private TextView textView;
         private CheckBox checkBox;

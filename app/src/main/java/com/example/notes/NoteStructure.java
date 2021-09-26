@@ -2,31 +2,35 @@ package com.example.notes;
 
 
 
-
-import android.app.assist.AssistStructure;
-import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.TextView;
 
+
+import com.google.firebase.firestore.Exclude;
 
 import java.util.Date;
 
 public class NoteStructure implements Parcelable {
-
-    private static String title;
+  @Exclude
+    private  String id;
     private static Date date;
+    private static String title;
     private String description;
     private boolean check;
 
-
-    public NoteStructure(String title, String description, Date date, boolean check) {
+    public NoteStructure(String title, Date date, String description, boolean check) {
         this.title = title;
-        this.description = description;
         this.date = date;
+        this.description = description;
         this.check = check;
     }
 
+    public NoteStructure(){
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
 
@@ -49,6 +53,9 @@ public class NoteStructure implements Parcelable {
         }
     };
 
+    public String getId() {
+        return id;
+    }
     public static String getTitle() {
         return title;
     }

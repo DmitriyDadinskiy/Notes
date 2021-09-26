@@ -1,14 +1,10 @@
 package com.example.notes;
 
-import static com.example.notes.R.layout.abc_list_menu_item_checkbox;
 import static com.example.notes.R.layout.fragment_notes;
-import static com.example.notes.R.layout.item;
 
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -29,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.UUID;
 
 
 public class NotesFragment extends Fragment {
@@ -44,8 +41,6 @@ public class NotesFragment extends Fragment {
     private TextView textView;
 
 
-
-
     public static NotesFragment newInstance() {
         return new NotesFragment();
     }
@@ -53,14 +48,16 @@ public class NotesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        data = new NoteStructurelmpl(getResources()).init();
+        data = new CardsSourceFirebaseImpl();
+        data.init(data -> adapter.notifyDataSetChanged());
+   //     data = new NoteStructurelmpl(getResources()).init((com.example.notes.CardsSourceResponse) CardsSourceResponse);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(fragment_notes, container, false);
-
         initView(view);
 
         return view;
@@ -89,7 +86,7 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(position -> {
-            currentPosition = new NoteStructurelmpl(getResources()).init();
+            currentPosition = new NoteStructurelmpl(getResources());
 
             showText(currentPosition);
         });
@@ -111,7 +108,7 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
-            currentPosition = new NoteStructurelmpl(getResources()).init();//(getResources().getStringArray(R.array.notes)[0], 0);
+            currentPosition = new NoteStructurelmpl(getResources());//(getResources().getStringArray(R.array.notes)[0], 0);
         }
         if (isLands) {
             showLandText(currentPosition);
@@ -130,11 +127,14 @@ public class NotesFragment extends Fragment {
        buttonPosition = adapter.getMenuPosition();
         switch (item.getItemId()) {
             case R.id.action_add:
-                data.addCardData(buttonPosition, new NoteStructure(data
-                        .getCardData(buttonPosition).getTitle(), data
-                        .getCardData(buttonPosition).getDescription(), data
-                        .getCardData(buttonPosition).getDate(), false));
-                adapter.notifyItemChanged(buttonPosition);
+                NoteStructure noteStructure = new NoteStructure("Title",NoteStructure.getDate(), "description", false);
+                noteStructure.setId(UUID.randomUUID().toString());
+                data.addCardData(noteStructure);
+//                data.addCardData(buttonPosition, new NoteStructure(data
+//                        .getCardData(buttonPosition).getTitle(), data
+//                        .getCardData(buttonPosition).getDescription(), data
+//                        .getCardData(buttonPosition).getDate(), false));
+                adapter.notifyItemChanged(data.size() - 1);
                 Toast.makeText(getContext(), "Добавили заметку", Toast
                         .LENGTH_LONG).show();
             case R.id.action_clear:

@@ -14,13 +14,20 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity {
+    private ItemAdapter adapter;
+    private CardsSource data;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        data = new CardsSourceFirebaseImpl();
+        data.init(cardsData -> adapter.notifyDataSetChanged());
+
         initView();
     }
 
@@ -33,10 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         Button delete = findViewById(R.id.delete);
         Button ADD = findViewById(R.id.addNotes);
-        ADD.setOnClickListener(v ->
-        Toast.makeText(getApplicationContext(), "Пока не сможем ничего добавить", Toast
-                .LENGTH_LONG).show());
-
+//        buttonPosition = adapter.getMenuPosition();
+        ADD.setOnClickListener(v -> {
+//            data.addCardData(buttonPosition, new NoteStructure(data
+//                    .getCardData(buttonPosition).getTitle(), data
+//                    .getCardData(buttonPosition).getDescription(), data
+//                    .getCardData(buttonPosition).getDate(), false));
+//
+//        adapter.notifyItemChanged(buttonPosition);
+        Toast.makeText(getApplicationContext(), "ADD Notes", Toast
+                .LENGTH_LONG).show();
+        });
 
         delete.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Не спеши ломать!", Toast
                 .LENGTH_LONG).show());
@@ -56,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
                         .LENGTH_LONG).show();
             case R.id.action_info:
                 Toast.makeText(getApplicationContext(), "Я скоро все расскажу", Toast
+                        .LENGTH_LONG).show();
+            case R.id.addNotes:
+                NoteStructure noteStructure =new NoteStructure("Title",NoteStructure.getDate(), "description", false);
+                noteStructure.setId(UUID.randomUUID().toString());
+                data.addCardData(noteStructure);
+//        adapter.notifyItemInserted(data.size() - 1);
+                Toast.makeText(getApplicationContext(), "ADD Notes", Toast
                         .LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);

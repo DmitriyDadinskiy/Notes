@@ -3,9 +3,6 @@ package com.example.notes;
 import android.os.Parcel;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,7 +21,7 @@ public class CardsSourceFirebaseImpl implements CardsSource {
 
 
     @Override
-    public CardsSource init(CardsSourceResponse cardsSourceResponse) {
+    public CardsSource init(final CardsSourceResponse cardsSourceResponse) {
         collection.get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
@@ -34,14 +31,13 @@ public class CardsSourceFirebaseImpl implements CardsSource {
                             data.setId(document.getId());
                             noteStructures.add(data);
                         }
-                        Log.d(TAG, "получено" + noteStructures.size());
+                        Log.d(TAG, "получено " + noteStructures.size());
+
                     }else {
                         Log.d(TAG, "не получено" + task.getException());
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.d(TAG, "ничего не происходит", e);
-                });
+                .addOnFailureListener(e -> Log.d(TAG, "ничего не происходит", e));
         return this;
     }
     @Override
@@ -63,8 +59,8 @@ public class CardsSourceFirebaseImpl implements CardsSource {
 
     @Override
     public void addCardData(final NoteStructure noteStructure) {
-        noteStructures.add(noteStructure);
         collection.document(noteStructure.getId()).set(noteStructure);
+        noteStructures.add(noteStructure);
 
     }
 

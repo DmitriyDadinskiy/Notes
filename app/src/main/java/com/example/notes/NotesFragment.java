@@ -32,13 +32,13 @@ public class NotesFragment extends Fragment {
 
     private boolean isLands;
     public static final String CURRENT_NOTE = "currentNote";
-    private NoteStructurelmpl currentPosition;
+    private CardsSource currentPosition;
     private CardsSource data;
     private RecyclerView recyclerView;
-    private int buttonPosition;
     private ItemAdapter adapter;
     private CheckBox checkBox;
     private TextView textView;
+    private Object Date;
 
 
     public static NotesFragment newInstance() {
@@ -50,7 +50,6 @@ public class NotesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         data = new CardsSourceFirebaseImpl();
         data.init(data -> adapter.notifyDataSetChanged());
-   //     data = new NoteStructurelmpl(getResources()).init((com.example.notes.CardsSourceResponse) CardsSourceResponse);
 
     }
 
@@ -58,6 +57,7 @@ public class NotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(fragment_notes, container, false);
+
         initView(view);
 
         return view;
@@ -67,7 +67,7 @@ public class NotesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_lines);
         checkBox = view.findViewById(R.id.check);
         textView = view.findViewById(R.id.title);
-        init(recyclerView, data);
+        init();
     }
 
     @Override
@@ -76,29 +76,29 @@ public class NotesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void init(RecyclerView recyclerView, CardsSource data) {
+    public void init() {
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-       adapter = new ItemAdapter(data, this);
+        adapter = new ItemAdapter(data,this);
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(position -> {
-            currentPosition = new NoteStructurelmpl(getResources());
+            currentPosition = new CardsSourceFirebaseImpl().getCardData(position);
 
             showText(currentPosition);
         });
     }
 
 
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(CURRENT_NOTE, (Parcelable) currentPosition);
+        outState.putParcelable(CURRENT_NOTE, currentPosition);
         super.onSaveInstanceState(outState);
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
-            currentPosition = new NoteStructurelmpl(getResources());//(getResources().getStringArray(R.array.notes)[0], 0);
+            currentPosition =  new CardsSourceFirebaseImpl().init(cardsSource -> adapter.notifyDataSetChanged());
         }
         if (isLands) {
             showLandText(currentPosition);
@@ -124,21 +124,18 @@ public class NotesFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-       buttonPosition = adapter.getMenuPosition();
+        int buttonPosition = adapter.getMenuPosition();
         switch (item.getItemId()) {
             case R.id.action_add:
-                NoteStructure noteStructure = new NoteStructure("Title",NoteStructure.getDate(), "description", false);
+                NoteStructure noteStructure = new NoteStructure("Title", (java.util.Date) Date, "description", false);
                 noteStructure.setId(UUID.randomUUID().toString());
                 data.addCardData(noteStructure);
-//                data.addCardData(buttonPosition, new NoteStructure(data
-//                        .getCardData(buttonPosition).getTitle(), data
-//                        .getCardData(buttonPosition).getDescription(), data
-//                        .getCardData(buttonPosition).getDate(), false));
+
                 adapter.notifyItemChanged(data.size() - 1);
                 Toast.makeText(getContext(), "Добавили заметку", Toast
                         .LENGTH_LONG).show();
             case R.id.action_clear:
-               data.deletePosition(buttonPosition);
+                data.deletePosition(buttonPosition);
                 adapter.notifyItemRemoved(buttonPosition);
                 Toast.makeText(getContext(), "заметка удалена", Toast
                         .LENGTH_LONG).show();
@@ -148,7 +145,7 @@ public class NotesFragment extends Fragment {
     }
 
 
-    private void showText(NoteStructurelmpl currentPosition) {
+    private void showText(CardsSource currentPosition) {
         if (isLands) {
             showLandText(currentPosition);
         } else {
@@ -156,7 +153,7 @@ public class NotesFragment extends Fragment {
         }
     }
 
-    private void showLandText(NoteStructurelmpl currentPosition) {
+    private void showLandText(CardsSource currentPosition) {
         TextFragment fragment = TextFragment.newInstance(currentPosition);
 
         requireActivity().getSupportFragmentManager()
@@ -166,10 +163,10 @@ public class NotesFragment extends Fragment {
                 .commit();
     }
 
-    private void showPortText(NoteStructurelmpl currentPosition) {
+    private void showPortText(CardsSource currentPosition) {
         Intent intent = new Intent();
         intent.setClass(getActivity(), TextActivity2.class);
-        intent.putExtra(TextFragment.ARG_NOTE, (Parcelable) currentPosition);
+        intent.putExtra(TextFragment.ARG_NOTE, currentPosition);
         startActivity(intent);
     }
 

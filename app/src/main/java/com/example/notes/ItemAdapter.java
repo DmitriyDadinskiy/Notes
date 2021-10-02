@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,17 +21,22 @@ import java.text.SimpleDateFormat;
 
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-    private  CardsSource dataSource;
+    private CardsSource dataSource;
     private static OnItemClickListener listener;
     private final Fragment fragment;
     private static int menuPosition;
-
 
 
     public ItemAdapter(CardsSource dataSource, Fragment fragment) {
         this.dataSource = dataSource;
         this.fragment = fragment;
     }
+
+
+//    public void setDataSource(CardsSource dataSource){
+//        this.dataSource = dataSource;
+//        notifyDataSetChanged();
+//    }
 
     @NonNull
     @Override
@@ -44,8 +48,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.setData(dataSource.getCardData(position));
+    public void onBindViewHolder(@NonNull ItemAdapter.ItemViewHolder viewHolder, int position) {
+        viewHolder.setData(dataSource.getCardData(position));
 
     }
 
@@ -59,7 +63,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
 
-
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -69,7 +72,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
 
-    public  class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageButton ImageButton;
         private TextView textView;
         private CheckBox checkBox;
@@ -82,12 +85,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             dateText = itemView.findViewById(R.id.date);
             textView = itemView.findViewById(R.id.title);
             this.fragment = fragment;
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(ItemViewHolder.this.getAdapterPosition());
-                }
-            });
+            textView.setOnClickListener(v -> listener.onItemClick(ItemViewHolder.this.getAdapterPosition()));
             checkBox = itemView.findViewById(R.id.check);
             checkBox.setOnClickListener(v -> {
                 int adapterPosition = getAdapterPosition();
@@ -125,14 +123,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         private void itemClicked(int adapterPosition) {
         }
 
-        public void setData(NoteStructure noteStructure) {
-            textView.setText(NoteStructure.getTitle());
-            checkBox.setChecked(noteStructure.isCheck());
-            dateText.setText(new SimpleDateFormat("dd-MM-yy").format(NoteStructure.getDate()));
-
-
-        }
-
         private void registerContextMenu(@NonNull View itemView) {
             if (fragment != null) {
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -144,8 +134,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 });
                 fragment.registerForContextMenu(itemView);
             }
-        }}}
+        }
 
+        public void setData(NoteStructure cardData) {
+            textView.setText(cardData.getTitle());
+            checkBox.setChecked(cardData.isCheck());
+            dateText.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
+        }
+    }
+}
 
 
 

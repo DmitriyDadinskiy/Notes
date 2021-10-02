@@ -19,6 +19,7 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     private ItemAdapter adapter;
     private CardsSource data;
+    private Object Date;
 
 
     @Override
@@ -40,14 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button delete = findViewById(R.id.delete);
         Button ADD = findViewById(R.id.addNotes);
-//        buttonPosition = adapter.getMenuPosition();
         ADD.setOnClickListener(v -> {
-//            data.addCardData(buttonPosition, new NoteStructure(data
-//                    .getCardData(buttonPosition).getTitle(), data
-//                    .getCardData(buttonPosition).getDescription(), data
-//                    .getCardData(buttonPosition).getDate(), false));
-//
-//        adapter.notifyItemChanged(buttonPosition);
+
         Toast.makeText(getApplicationContext(), "ADD Notes", Toast
                 .LENGTH_LONG).show();
         });
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Я скоро все расскажу", Toast
                         .LENGTH_LONG).show();
             case R.id.addNotes:
-                NoteStructure noteStructure =new NoteStructure("Title",NoteStructure.getDate(), "description", false);
+                NoteStructure noteStructure = new NoteStructure("Title",(java.util.Date) Date, "description", false);
                 noteStructure.setId(UUID.randomUUID().toString());
                 data.addCardData(noteStructure);
 //        adapter.notifyItemInserted(data.size() - 1);

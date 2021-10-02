@@ -5,8 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public interface CardsSource extends Parcelable {
-    CardsSource init(CardsSourceResponse cardsSourceResponse);
 
+    CardsSource init(CardsSourceResponse cardsSourceResponse);
     NoteStructure getCardData(int position);
 
     int size();

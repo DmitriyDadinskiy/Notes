@@ -32,7 +32,7 @@ public class TextFragment extends Fragment {
     public TextFragment() {
     }
 
-    public static TextFragment newInstance(NoteStructurelmpl note) {
+    public static TextFragment newInstance(CardsSource note) {
         TextFragment fragment = new TextFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_NOTE, (Parcelable) note);

@@ -37,7 +37,7 @@ public class NoteStructurelmpl implements CardsSource {
         String[] title = resources.getStringArray(R.array.notes);
         String[] description = resources.getStringArray(R.array.text_notes);
         for (int i = 0; i < title.length; i++) {
-            dataSource.add(new NoteStructure(title[i], Calendar.getInstance().getTime(), description[i], false));
+            dataSource.add(new NoteStructure(title[i],"dd.mm.eeee" , description[i], false));
         }
         if (cardsSourceResponse != null) {
             cardsSourceResponse.initialized(this);

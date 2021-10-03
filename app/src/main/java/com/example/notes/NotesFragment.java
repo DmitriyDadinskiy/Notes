@@ -38,8 +38,6 @@ public class NotesFragment extends Fragment {
     private ItemAdapter adapter;
     private CheckBox checkBox;
     private TextView textView;
-    private Object Date;
-
 
     public static NotesFragment newInstance() {
         return new NotesFragment();
@@ -127,7 +125,7 @@ public class NotesFragment extends Fragment {
         int buttonPosition = adapter.getMenuPosition();
         switch (item.getItemId()) {
             case R.id.action_add:
-                NoteStructure noteStructure = new NoteStructure("Title", (java.util.Date) Date, "description", false);
+                NoteStructure noteStructure = new NoteStructure("Title", "dd.mm.eeee", "description", false);
                 noteStructure.setId(UUID.randomUUID().toString());
                 data.addCardData(noteStructure);
 

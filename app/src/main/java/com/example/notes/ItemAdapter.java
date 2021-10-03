@@ -139,7 +139,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         public void setData(NoteStructure cardData) {
             textView.setText(cardData.getTitle());
             checkBox.setChecked(cardData.isCheck());
-            dateText.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
+            dateText.setText((cardData.getDate()));
         }
     }
 }

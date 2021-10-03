@@ -19,7 +19,7 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     private ItemAdapter adapter;
     private CardsSource data;
-    private Object Date;
+
 
 
     @Override
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Я скоро все расскажу", Toast
                         .LENGTH_LONG).show();
             case R.id.addNotes:
-                NoteStructure noteStructure = new NoteStructure("Title",(java.util.Date) Date, "description", false);
+                NoteStructure noteStructure = new NoteStructure("Title","dd.mm.ee", "description", false);
                 noteStructure.setId(UUID.randomUUID().toString());
                 data.addCardData(noteStructure);
 //        adapter.notifyItemInserted(data.size() - 1);

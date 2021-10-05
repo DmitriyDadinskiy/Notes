@@ -64,10 +64,10 @@ public class TextFragment extends Fragment {
     private void initText(@NonNull View view) {
         AppCompatEditText TextFragment = view.findViewById(R.id.text_fragment);
         String[] textNotes = getResources().getStringArray(R.array.text_notes);
-     //   TextFragment.setText(textNotes[Integer.parseInt(note1.getDescription())]);
-
-        TextView noteNameView = view.findViewById(text_in_fragment);
-        noteNameView.setText(note1.getTitle());
+//        TextFragment.setText(textNotes[Integer.parseInt(note1.getDescription())]);
+//
+//        TextView noteNameView = view.findViewById(text_in_fragment);
+//        noteNameView.setText(note1.getTitle());
     }
 
 

@@ -84,7 +84,7 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(position -> {
-            currentPosition = new CardsSourceFirebaseImpl().getCardData(position);
+            currentPosition = new CardsSourceFirebaseImpl();
 
             showText(currentPosition);
         });
@@ -128,15 +128,14 @@ public class NotesFragment extends Fragment {
                 NoteStructure noteStructure = new NoteStructure("Title", "dd.mm.eeee", "description", false);
                 noteStructure.setId(UUID.randomUUID().toString());
                 data.addCardData(noteStructure);
-
                 adapter.notifyItemChanged(data.size() - 1);
                 Toast.makeText(getContext(), "Добавили заметку", Toast
                         .LENGTH_LONG).show();
             case R.id.action_clear:
-                data.deletePosition(buttonPosition);
-                adapter.notifyItemRemoved(buttonPosition);
-                Toast.makeText(getContext(), "заметка удалена", Toast
-                        .LENGTH_LONG).show();
+//                data.deletePosition(buttonPosition);
+//                adapter.notifyItemRemoved(buttonPosition);
+//                Toast.makeText(getContext(), "заметка удалена", Toast
+//                        .LENGTH_LONG).show();
                 return true;
         }
         return super.onContextItemSelected(item);

@@ -8,17 +8,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    private ItemAdapter adapter;
+
     private CardsSource data;
+
 
 
 
@@ -26,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        data = new CardsSourceFirebaseImpl();
-        data.init(cardsData -> adapter.notifyDataSetChanged());
+
 
         initView();
     }
@@ -42,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         Button delete = findViewById(R.id.delete);
         Button ADD = findViewById(R.id.addNotes);
         ADD.setOnClickListener(v -> {
-
+            NoteStructure noteStructure = new NoteStructure("Title","dd.mm.ee", "description", false);
+            noteStructure.setId(UUID.randomUUID().toString());
+            data.addCardData(noteStructure);
         Toast.makeText(getApplicationContext(), "ADD Notes", Toast
                 .LENGTH_LONG).show();
         });

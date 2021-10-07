@@ -8,16 +8,12 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ItemAdapter adapter;
     private CardsSource data;
-
-
 
 
     @Override
@@ -31,24 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         initToolbar();
-        initButton();
+
     }
 
-    private void initButton() {
-
-        Button delete = findViewById(R.id.delete);
-        Button ADD = findViewById(R.id.addNotes);
-        ADD.setOnClickListener(v -> {
-            NoteStructure noteStructure = new NoteStructure("Title","dd.mm.ee", "description", false);
-            noteStructure.setId(UUID.randomUUID().toString());
-            data.addCardData(noteStructure);
-        Toast.makeText(getApplicationContext(), "ADD Notes", Toast
-                .LENGTH_LONG).show();
-        });
-
-        delete.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Не спеши ломать!", Toast
-                .LENGTH_LONG).show());
-    }
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -65,13 +46,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_info:
                 Toast.makeText(getApplicationContext(), "Я скоро все расскажу", Toast
                         .LENGTH_LONG).show();
-            case R.id.addNotes:
-                NoteStructure noteStructure = new NoteStructure("Title","dd.mm.ee", "description", false);
-                noteStructure.setId(UUID.randomUUID().toString());
-                data.addCardData(noteStructure);
-//        adapter.notifyItemInserted(data.size() - 1);
-                Toast.makeText(getApplicationContext(), "ADD Notes", Toast
-                        .LENGTH_LONG).show();
+
         }
         return super.onOptionsItemSelected(item);
     }

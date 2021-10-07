@@ -115,7 +115,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 @Override
                 public void onClick(View v) {
                     menuPosition = getLayoutPosition();
-                    itemView.showContextMenu(20, 20);
+                    itemView.showContextMenu(300, 20);
                 }
             });
         }

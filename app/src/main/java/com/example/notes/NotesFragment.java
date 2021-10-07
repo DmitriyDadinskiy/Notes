@@ -3,8 +3,10 @@ package com.example.notes;
 import static com.example.notes.R.layout.fragment_notes;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +42,8 @@ public class NotesFragment extends Fragment {
     private ItemAdapter adapter;
     private CheckBox checkBox;
     private TextView textView;
+    private Button ADD;
+
 
     public static NotesFragment newInstance() {
         return new NotesFragment();
@@ -65,6 +71,8 @@ public class NotesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_lines);
         checkBox = view.findViewById(R.id.check);
         textView = view.findViewById(R.id.title);
+        ADD = view.findViewById(R.id.addNotes);
+        initButton();
         init();
     }
 
@@ -80,7 +88,7 @@ public class NotesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ItemAdapter(data,this);
+        adapter = new ItemAdapter(data, this);
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(position -> {
@@ -106,15 +114,56 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
-            currentPosition =  new CardsSourceFirebaseImpl().init(cardsSource -> adapter.notifyDataSetChanged());
+            currentPosition = new CardsSourceFirebaseImpl().init(cardsSource -> adapter.notifyDataSetChanged());
         }
         if (isLands) {
             showLandText(currentPosition);
         }
     }
 
+    private void initButton() {
+
+
+        ADD.setOnClickListener(v -> {
+            NoteStructure noteStructure = new NoteStructure("Title", "dd.mm.ee", "description", false);
+            noteStructure.setId(UUID.randomUUID().toString());
+            data.addCardData(noteStructure);
+            Toast.makeText(getContext(), "ADD Notes", Toast
+                    .LENGTH_LONG).show();
+        });
+
+
+    }
+
     @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int fm = item.getItemId();
+        switch (fm) {
+            case R.id.share:
+                Toast.makeText(getContext(), "Скоро будет можно делиться", Toast.LENGTH_LONG).show();
+            case R.id.photo:
+                Toast.makeText(getContext(), "Скоро будет фото", Toast.LENGTH_LONG).show();
+            case R.id.addNotes:
+                NoteStructure noteStructure = new NoteStructure("Title", "dd.mm.ee", "description", false);
+                noteStructure.setId(UUID.randomUUID().toString());
+                data.addCardData(noteStructure);
+                adapter.notifyItemInserted(data.size() - 1);
+                Toast.makeText(getContext(), "ADD Notes", Toast
+                        .LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View
+            v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = requireActivity().getMenuInflater();
         inflater.inflate(R.menu.contex_menu, menu);
@@ -123,20 +172,27 @@ public class NotesFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int buttonPosition = adapter.getMenuPosition();
+
         switch (item.getItemId()) {
-            case R.id.action_add:
-                NoteStructure noteStructure = new NoteStructure("Title", "dd.mm.eeee", "description", false);
-                noteStructure.setId(UUID.randomUUID().toString());
-                data.addCardData(noteStructure);
-                adapter.notifyItemChanged(data.size() - 1);
-                Toast.makeText(getContext(), "Добавили заметку", Toast
-                        .LENGTH_LONG).show();
+
             case R.id.action_clear:
-//                data.deletePosition(buttonPosition);
-//                adapter.notifyItemRemoved(buttonPosition);
-//                Toast.makeText(getContext(), "заметка удалена", Toast
-//                        .LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Точно удалить?")
+                        .setIcon(R.drawable.ic_dialog_close_light)
+                        .setCancelable(true)
+                        .setPositiveButton("Ok", (dialog, which) -> {
+                            data.deletePosition(buttonPosition);
+                            adapter.notifyItemRemoved(buttonPosition);
+                            Toast.makeText(getContext(), "Земтка удалена", Toast.LENGTH_LONG).show();
+
+                        })
+                        .setNegativeButton("Cancell", (dialog, which) -> {
+                            Toast.makeText(getContext(), "Отмена", Toast.LENGTH_LONG).show();
+                        })
+                        .show();
                 return true;
+            default:
+
         }
         return super.onContextItemSelected(item);
     }

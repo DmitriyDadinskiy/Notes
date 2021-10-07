@@ -29,6 +29,7 @@ public class TextFragment extends Fragment {
     private NoteStructurelmpl note;
     private NoteStructure note1;
     private CardsSource dataSource;
+
     public TextFragment() {
     }
 
@@ -70,22 +71,5 @@ public class TextFragment extends Fragment {
 //        noteNameView.setText(note1.getTitle());
     }
 
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_fragment, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int fm = item.getItemId();
-        switch (fm) {
-            case R.id.share:
-                Toast.makeText(getContext(), "Скоро будет можно делиться", Toast.LENGTH_LONG).show();
-            case R.id.photo:
-                Toast.makeText(getContext(), "Скоро будет фото", Toast.LENGTH_LONG).show();
-        }
-        return true;
-    }
 }
+

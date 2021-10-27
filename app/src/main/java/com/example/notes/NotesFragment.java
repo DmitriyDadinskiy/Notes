@@ -52,8 +52,7 @@ public class NotesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        data = new CardsSourceFirebaseImpl();
-        data.init(data -> adapter.notifyDataSetChanged());
+
 
     }
 
@@ -61,7 +60,8 @@ public class NotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(fragment_notes, container, false);
-
+        data = new CardsSourceFirebaseImpl();
+        data.init(data -> adapter.notifyDataSetChanged());
         initView(view);
 
         return view;
@@ -186,7 +186,7 @@ public class NotesFragment extends Fragment {
                             Toast.makeText(getContext(), "Земтка удалена", Toast.LENGTH_LONG).show();
 
                         })
-                        .setNegativeButton("Cancell", (dialog, which) -> {
+                        .setNegativeButton("Cancel", (dialog, which) -> {
                             Toast.makeText(getContext(), "Отмена", Toast.LENGTH_LONG).show();
                         })
                         .show();

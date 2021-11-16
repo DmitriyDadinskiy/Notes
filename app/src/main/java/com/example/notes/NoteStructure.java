@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 import com.google.firebase.firestore.Exclude;
 
-public class NoteStructure implements Parcelable, CardsSource {
+public class NoteStructure implements Parcelable {
     @Exclude
     private String id;
     private String date;
@@ -86,33 +86,6 @@ public class NoteStructure implements Parcelable, CardsSource {
     }
 
 
-    @Override
-    public CardsSource init(CardsSourceResponse cardsSourceResponse) {
-        return null;
-    }
 
-    @Override
-    public NoteStructure getCardData(int position) {
-        return null;
-    }
-
-    @Override
-    public int size() {
-        return 1;
-    }
-
-    @Override
-    public void deletePosition(int position) {
-
-    }
-
-    @Override
-    public void addCardData(NoteStructure noteStructure) {
-
-    }
-
-    @Override
-    public void isCheck(int position) {
-
-    }
 }
+

@@ -31,6 +31,7 @@ public class CardsSourceFirebaseImpl implements CardsSource {
                             data.setId(document.getId());
                             noteStructures.add(data);
                         }
+                        cardsSourceResponse.initialized(this);
                         Log.d(TAG, "получено " + noteStructures.size());
 
                     }else {

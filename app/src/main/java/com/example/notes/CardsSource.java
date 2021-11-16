@@ -1,6 +1,6 @@
 package com.example.notes;
 
-import android.content.res.Resources;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,13 +8,10 @@ public interface CardsSource extends Parcelable {
 
     CardsSource init(CardsSourceResponse cardsSourceResponse);
     NoteStructure getCardData(int position);
-
     int size();
-
     void deletePosition(int position);
 
     void addCardData(NoteStructure noteStructure);
-
     void isCheck(int position);
 
     Parcelable.Creator<CardsSource> CREATOR = new Parcelable.Creator<CardsSource>() {
@@ -51,6 +48,7 @@ public interface CardsSource extends Parcelable {
                 public void isCheck(int position) {
 
                 }
+
 
                 @Override
                 public int describeContents() {

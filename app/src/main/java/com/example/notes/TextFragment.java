@@ -29,6 +29,7 @@ public class TextFragment extends Fragment {
     private NoteStructurelmpl note;
     private NoteStructure note1;
     private CardsSource dataSource;
+
     public TextFragment() {
     }
 
@@ -64,28 +65,11 @@ public class TextFragment extends Fragment {
     private void initText(@NonNull View view) {
         AppCompatEditText TextFragment = view.findViewById(R.id.text_fragment);
         String[] textNotes = getResources().getStringArray(R.array.text_notes);
-     //   TextFragment.setText(textNotes[Integer.parseInt(note1.getDescription())]);
-
-        TextView noteNameView = view.findViewById(text_in_fragment);
-        noteNameView.setText(note1.getTitle());
+//        TextFragment.setText(textNotes[Integer.parseInt(note1.getDescription())]);
+//
+//        TextView noteNameView = view.findViewById(text_in_fragment);
+//        noteNameView.setText(note1.getTitle());
     }
 
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_fragment, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int fm = item.getItemId();
-        switch (fm) {
-            case R.id.share:
-                Toast.makeText(getContext(), "Скоро будет можно делиться", Toast.LENGTH_LONG).show();
-            case R.id.photo:
-                Toast.makeText(getContext(), "Скоро будет фото", Toast.LENGTH_LONG).show();
-        }
-        return true;
-    }
 }
+
